@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 00:41:59 by ojamal            #+#    #+#             */
-/*   Updated: 2023/04/11 00:45:15 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/04/11 02:47:02 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,13 @@
 void ft_putchar(char c, int *len)
 {
 	write(1, &c, 1);
-	*len = *len + 1;
 }
 
 void	ft_putstr(char *str, int *len)
 {
 	int i = 0;
+	if(!str)
+		str = "(null)";
 	while(str[i])
 	{
 		ft_putchar(str[i], len);
@@ -31,6 +32,11 @@ void	ft_putstr(char *str, int *len)
 
 void ft_putnbr(int n, int *len)
 {
+	if (n < 0)
+	{
+		n *= -1;
+		*len += 1 + write(1, "-", 1);
+	}
 	if (n <= 9)
 	{
 		n += '0';
@@ -73,9 +79,9 @@ int ft_printf(const char *str, ...)
 			if (str[i] == 's')
 				ft_putstr(va_arg(ap, char *), &len);
 			else if (str[i] == 'd')
-				ft_putnbr(va_arg(ap, int), &len);
+				ft_putnbr((long long int)va_arg(ap, int), &len);
 			else if (str[i] == 'x')
-				ft_puthex(va_arg(ap, unsigned int), &len);
+				ft_puthex((long long int)va_arg(ap, unsigned int), &len);
 		}
 		else
 			ft_putchar(str[i], &len);
