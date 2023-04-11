@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ojamal <ojamal@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/11 00:41:59 by ojamal            #+#    #+#             */
+/*   Updated: 2023/04/11 00:45:15 by ojamal           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <unistd.h>
 #include <stdarg.h>
 
@@ -33,10 +45,11 @@ void ft_putnbr(int n, int *len)
 
 void ft_puthex(unsigned int n, int *len)
 {
+	char str[] = "0123456789abcdef";
 	if (n <= 16)
 	{
 		n += '0';
-		ft_putchar(n["0123456789abcdef"], len);
+		ft_putchar(str[n % 16], len);
 		*len = *len + 1;
 	}
 	else
