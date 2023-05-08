@@ -6,7 +6,7 @@
 /*   By: ojamal <ojamal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 00:41:59 by ojamal            #+#    #+#             */
-/*   Updated: 2023/04/11 02:47:02 by ojamal           ###   ########.fr       */
+/*   Updated: 2023/05/08 15:31:22 by ojamal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 void ft_putchar(char c, int *len)
 {
 	write(1, &c, 1);
+	*len = *len + 1;
 }
 
 void	ft_putstr(char *str, int *len)
@@ -32,10 +33,15 @@ void	ft_putstr(char *str, int *len)
 
 void ft_putnbr(int n, int *len)
 {
+	if (n == -2147483648)
+	{
+		ft_putstr("-2147483648", len);
+		return ;
+	}
 	if (n < 0)
 	{
 		n *= -1;
-		*len += 1 + write(1, "-", 1);
+		ft_putchar('-', len);
 	}
 	if (n <= 9)
 	{
@@ -56,7 +62,6 @@ void ft_puthex(unsigned int n, int *len)
 	{
 		n += '0';
 		ft_putchar(str[n % 16], len);
-		*len = *len + 1;
 	}
 	else
 	{
